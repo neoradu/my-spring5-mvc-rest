@@ -11,7 +11,7 @@ import javax.persistence.Id;
  * Created by jt on 9/24/17.
  */
 @Data
-@Entity
+@Entity //Specifies that the class is an entity. This annotation is applied to the entity class.
 public class Category {
 
     @Id

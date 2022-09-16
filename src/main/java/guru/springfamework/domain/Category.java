@@ -1,5 +1,6 @@
 package guru.springfamework.domain;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 /**
  * Created by jt on 9/24/17.
  */
+@Builder
 @Data
 @Entity //Specifies that the class is an entity. This annotation is applied to the entity class.
 public class Category {

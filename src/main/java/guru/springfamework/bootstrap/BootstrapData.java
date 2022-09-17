@@ -38,6 +38,8 @@ public class BootstrapData implements CommandLineRunner {
 			Category cat = Category.builder().name(catName).build();
 			categoryRepository.save(cat);
 		}
+		categoryRepository.flush();
+		
 		for(int i = 0; i < personNames.length; i++) {
 			Customer c = Customer.builder()//using builder pattern, not sure is so much nicer
 						   .firstName(personNames[i])
@@ -45,8 +47,9 @@ public class BootstrapData implements CommandLineRunner {
 					       .build();
 			customerRepository.save(c);
 		}
-		categoryRepository.flush();
 		customerRepository.flush();
+		
+		
 		
 		log.debug("BootStrap Data Complette");
 		//System.out.println("Categories loaded");

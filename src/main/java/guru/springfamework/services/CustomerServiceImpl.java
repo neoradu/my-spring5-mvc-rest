@@ -3,10 +3,13 @@ package guru.springfamework.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import guru.springfamework.api.v1.mapper.CustomerMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.repositories.CustomerRepository;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
 	
 	private final CustomerRepository customerRepository;

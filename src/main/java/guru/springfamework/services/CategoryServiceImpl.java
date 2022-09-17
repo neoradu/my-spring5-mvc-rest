@@ -3,11 +3,14 @@ package guru.springfamework.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import guru.springfamework.api.v1.mapper.CategoryMapper;
 import guru.springfamework.api.v1.model.CategoryDTO;
 import guru.springfamework.domain.Category;
 import guru.springfamework.repositories.CategoryRepository;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 	
 	final private CategoryMapper mapper;

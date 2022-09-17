@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -45,8 +46,14 @@ public class CustomerController {
 	 * Optionally, automatic validation can be applied by annotating the argument with @Valid.
 	 **/
 	@PostMapping
-	public ResponseEntity<CustomerDTO> getCustomer(@Valid @RequestBody CustomerDTO customerDto) {
+	public ResponseEntity<CustomerDTO> createCustomer(@Valid @RequestBody CustomerDTO customerDto) {
 		return new ResponseEntity<>(customerService.createCustomer(customerDto), HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable String id, 
+			                                          @Valid @RequestBody CustomerDTO customerDto) {
+		return new ResponseEntity<>(customerService.updateCustomer(id, customerDto), HttpStatus.OK);
 	}
 	
 }

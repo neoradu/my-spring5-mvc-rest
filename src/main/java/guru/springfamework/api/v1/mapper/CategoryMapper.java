@@ -12,6 +12,8 @@ import guru.springfamework.domain.Category;
 public interface CategoryMapper {
 	CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
 	
-	CategoryDTO categoryToCategosryDTO(Category category);
+	CategoryDTO categoryToCategoryDTO(Category category);
+	
+	//Category categoryDTOtoCategory(CategoryDTO category);
 
 }

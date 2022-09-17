@@ -7,7 +7,7 @@ import lombok.Data;
  */
 
 // we will expose this through the rest controller
-@Data
+@Data //https://auth0.com/blog/how-to-automatically-map-jpa-entities-into-dtos-in-spring-boot-using-mapstruct/
 public class CategoryDTO {
     private Long id;
     private String name;

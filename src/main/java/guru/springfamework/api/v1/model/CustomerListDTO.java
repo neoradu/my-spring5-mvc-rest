@@ -9,5 +9,5 @@ import lombok.Data;
 @Data
 public class CustomerListDTO {
 
-	public List<CustomerDTO> categories;
+	public List<CustomerDTO> customers;
 }

@@ -19,6 +19,8 @@ import javax.persistence.Id;
 public class Category {
 
     @Id
+    //Indicates that the persistence provider must assign primary keys
+    //for the entity using a database identity column.
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;

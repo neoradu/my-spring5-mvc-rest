@@ -32,7 +32,7 @@ public class CategoryServiceTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		
-		catService = new CategoryServiceImpl(catMapper, catRepo);
+		catService = new CategoryServiceImpl(catRepo, catMapper);
 		
 		String[] categoriesS = {"Fruits", "Dried", "Fresh", "Exotic", "Nuts", "undefined"};
 		

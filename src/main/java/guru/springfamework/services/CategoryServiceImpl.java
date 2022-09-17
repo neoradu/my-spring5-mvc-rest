@@ -17,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService {
 	final private CategoryRepository repository;
 	
 	
-	public CategoryServiceImpl(CategoryMapper mapper, CategoryRepository repository) {
+	public CategoryServiceImpl( CategoryRepository repository,CategoryMapper mapper) {
 		super();
 		this.mapper = mapper;
 		this.repository = repository;

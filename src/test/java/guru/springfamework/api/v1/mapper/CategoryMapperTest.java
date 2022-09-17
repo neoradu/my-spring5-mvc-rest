@@ -16,8 +16,7 @@ public class CategoryMapperTest {
 	
 	@Autowired
 	private CategoryMapper catMap = CategoryMapper.INSTANCE;
-	
-	
+		
 	@Test
 	public void testCategoryMapper() {
 		Category testCat = Category.builder()

@@ -1,9 +1,11 @@
 package guru.springfamework.controllers;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.LinkedList;
@@ -15,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -27,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
-public class CustomerControllerTest {
+public class CustomerControllerTest extends AbstractTestControllerTest {
 	
 	private static CustomerMapper  customerMapper = CustomerMapper.INSTANCE;
 	@Mock
@@ -81,6 +84,19 @@ public class CustomerControllerTest {
 		//log.debug(result.getResponse().getContentAsString());
 		assertEquals("{\"id\":1,\"firstName\":\"Georgel\",\"lastName\":\"Vali\",\"url\":\"/api/v1/customers/1\"}",
 				     result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void testCreateCustomer() throws Exception {
+		when(customerService.createCustomer(any())).thenReturn(customers.get(1));
+		MvcResult result = mocMvc.perform(post("/api/v1/customers") 
+				                             .contentType(MediaType.APPLICATION_JSON)
+				                             .content(this.asJsonString(customers.get(1))))
+                				.andExpect(status().isCreated())
+                				//.andExpect(jsonPath()) verify the returned value
+                				.andReturn();
+		//this should be done smarter
+		assertEquals(true,result.getResponse().getContentAsString().contains(customers.get(1).getFirstName()));
 	}
 	
 }

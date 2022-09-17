@@ -1,10 +1,14 @@
 package guru.springfamework.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import guru.springfamework.api.v1.model.CustomerDTO;
@@ -32,6 +36,17 @@ public class CustomerController {
 	public ResponseEntity<CustomerDTO> getCustomer(@PathVariable String id) {
 
 		return new ResponseEntity<>(customerService.getCustomerById(id),HttpStatus.OK);
+	}
+	/*@RequestBody
+	 * Annotation indicating a method parameter should be bound to the body of
+	 *  the web request.
+	 * The body of the request is passed through an HttpMessageConverter to
+	 * resolve the method argument depending on the content type of the request.
+	 * Optionally, automatic validation can be applied by annotating the argument with @Valid.
+	 **/
+	@PostMapping
+	public ResponseEntity<CustomerDTO> getCustomer(@Valid @RequestBody CustomerDTO customerDto) {
+		return new ResponseEntity<>(customerService.createCustomer(customerDto), HttpStatus.CREATED);
 	}
 	
 }

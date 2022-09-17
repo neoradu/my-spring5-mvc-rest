@@ -25,12 +25,15 @@ public class CategoryServiceTest {
 	@Mock
 	private CategoryRepository catRepo;
 	
-	private CategoryService catService = new CategoryServiceImpl(catMapper, catRepo);
+	private CategoryService catService;
 	
 	private List<Category> categories = new LinkedList<>();
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
+		
+		catService = new CategoryServiceImpl(catMapper, catRepo);
+		
 		String[] categoriesS = {"Fruits", "Dried", "Fresh", "Exotic", "Nuts", "undefined"};
 		
 		for(String catName : categoriesS) {
@@ -47,9 +50,9 @@ public class CategoryServiceTest {
 		List<CategoryDTO> retCats = catService.getAllCategories();
 		
 		assertEquals(categories.size(), retCats.size());
-		
-		/*assertEquals(categories.get(1).getName(), 
-				     catMapper.categoryDTOtoCategory(retCats.get(1)).getName());*/
+		for(int i = 0; i < categories.size(); i++)
+			assertEquals(categories.get(i).getName(), 
+					     catMapper.categoryDTOtoCategory(retCats.get(i)).getName());
 		
 		
 	}

@@ -37,7 +37,7 @@ public class CustomerControllerTest {
 	private CustomerController customerController;
 	
 	private static final String[] personNames = {"Vali", "Georgel"};
-	private final String customersResponseS = "{\"categories\":[{\"id\":0,\"firstName\":\"Vali\",\"lastName\":\"Georgel\"},{\"id\":1,\"firstName\":\"Georgel\",\"lastName\":\"Vali\"}]}";
+	private final String customersResponseS = "{\"categories\":[{\"id\":0,\"firstName\":\"Vali\",\"lastName\":\"Georgel\",\"url\":\"/api/v1/customers/0\"},{\"id\":1,\"firstName\":\"Georgel\",\"lastName\":\"Vali\",\"url\":\"/api/v1/customers/1\"}]}";
 	private static List<CustomerDTO> customers = new LinkedList<>();
 	
 	private MockMvc mocMvc = null;
@@ -79,7 +79,8 @@ public class CustomerControllerTest {
 		                         .andExpect(status().isOk())
 		                         .andReturn();
 		//log.debug(result.getResponse().getContentAsString());
-		assertEquals("{\"id\":1,\"firstName\":\"Georgel\",\"lastName\":\"Vali\"}", result.getResponse().getContentAsString());
+		assertEquals("{\"id\":1,\"firstName\":\"Georgel\",\"lastName\":\"Vali\",\"url\":\"/api/v1/customers/1\"}",
+				     result.getResponse().getContentAsString());
 	}
 	
 }

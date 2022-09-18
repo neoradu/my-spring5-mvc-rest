@@ -237,4 +237,5 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 		              .andExpect(status().isNotFound());
 		//log.debug(result.getResponse().getContentAsString());
 	}
+	//TODO: research :http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matchers.html
 }

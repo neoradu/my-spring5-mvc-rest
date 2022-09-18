@@ -71,4 +71,11 @@ public class CustomerServiceImpl implements CustomerService {
 		return replaceCustomer(id, foundCustomer);
 	}
 
+	@Override
+	public void deleteCustomer(String id) {
+		long idL = Long.valueOf(id);
+		customerRepository.deleteById(idL);
+		customerRepository.flush();	
+	}
+
 }

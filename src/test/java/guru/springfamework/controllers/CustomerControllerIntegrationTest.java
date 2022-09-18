@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -183,6 +184,17 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
       				  .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(newCustomer.getFirstName()))
       				  .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value(lastName))
       				  .andReturn();
+		//log.debug(result.getResponse().getContentAsString());
+	}
+	@Test
+	public void testDeleteCustomer() throws Exception {
+		
+		mocMvc.perform(delete("/api/v1/customers/3"))
+					  .andExpect(status().isOk());
+		
+		//MvcResult result = // this is id 9 because of testCreateCustomer()
+				mocMvc.perform(get("/api/v1/customers/3"))
+		              .andExpect(status().isNotFound());
 		//log.debug(result.getResponse().getContentAsString());
 	}
 }

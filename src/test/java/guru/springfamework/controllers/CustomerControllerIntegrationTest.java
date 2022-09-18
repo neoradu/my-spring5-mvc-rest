@@ -192,7 +192,7 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 		mocMvc.perform(delete("/api/v1/customers/3"))
 					  .andExpect(status().isOk());
 		
-		//MvcResult result = // this is id 9 because of testCreateCustomer()
+		//MvcResult result =
 				mocMvc.perform(get("/api/v1/customers/3"))
 		              .andExpect(status().isNotFound());
 		//log.debug(result.getResponse().getContentAsString());

@@ -18,7 +18,10 @@ import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.api.v1.model.CustomerListDTO;
 
 import guru.springfamework.services.CustomerService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(description = "This controller takes care of the customers", name = "Customer Controller")
 @RestController
 @RequestMapping(CustomerController.BASE_URL)// this way you canduse BASE_URL in testing
 ///@RequestMapping("${propierties.controller.url}") can be also externalize in properties file
@@ -31,7 +34,8 @@ public class CustomerController {
 		super();
 		this.customerService = customerService;
 	}
-	
+	//https://docs.swagger.io/swagger-core/v2.0.0-RC3/apidocs/io/swagger/v3/oas/annotations/package-summary.html
+	@Operation(summary = "Get Customers", description = "This gets a list of customers")
 	@GetMapping
 	public ResponseEntity<CustomerListDTO> getCustomers() {	
 		return new ResponseEntity<>(new CustomerListDTO(customerService.getAllCustomers()),

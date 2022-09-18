@@ -1,8 +1,11 @@
 package guru.springfamework.api.v1.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class CustomerDTO {
 	private Long id;
 	private String firstName;
+	@Schema(required = true )
 	private String lastName;
 	private String url;
 	public CustomerDTO(Long id, String firstName, String lastName, String url) {

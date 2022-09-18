@@ -1,21 +1,25 @@
 package guru.springfamework.controllers;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -54,21 +58,26 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 			BootstrapData bootstrap = new BootstrapData(categoryRepository,
 							                            customerRepository);
 			try {
-				bootstrap.run(null);
+				bootstrap.run((String[])null);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+
+	}
+	
+	@BeforeEach
+	public void setUp() {
 		newCustomer = Customer.builder()
-							  .firstName("NewGeorgica")
-							  .lastName("NewLastName")
-							  .build();
+				              .firstName("NewGeorgica")
+				              .lastName("NewLastName")
+				              .build();	
 	}
 	
 	@Test
 	public void testGetAll() throws Exception {
 		
-		MvcResult result =
+		//MvcResult result =
 				mocMvc.perform(get("/api/v1/customers"))
 		              .andExpect(status().isOk())
 		              .andExpect(MockMvcResultMatchers.jsonPath("$.customers").isArray())
@@ -77,39 +86,103 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 		              .andExpect(MockMvcResultMatchers.jsonPath("$.customers[6].id").value("7"))
 		              .andExpect(MockMvcResultMatchers.jsonPath("$.customers[6].url").value("/api/v1/customers/7"))
 		              .andReturn();
-		log.debug(result.getResponse().getContentAsString());
+		//log.debug(result.getResponse().getContentAsString());
 		//assertEquals(categoriesResponseS, result.getResponse().getContentAsString());
 	}
 	
 	@Test
 	public void testCreateCustomer() throws Exception {
 		//when(customerService.createCustomer(any())).thenReturn(customers.get(1));
-		MvcResult result = mocMvc.perform(post("/api/v1/customers") 
-				                             .contentType(MediaType.APPLICATION_JSON)
-				                             .content(AbstractTestControllerTest.asJsonString(newCustomer)))
-                				.andExpect(status().isCreated())
-                				.andExpect(MockMvcResultMatchers.jsonPath("$.id").value("8"))
-                				.andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/8"))
-                				.andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(newCustomer.getFirstName()))
-                				.andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value(newCustomer.getLastName()))
-                				.andReturn();
-		log.debug(result.getResponse().getContentAsString());
+		//MvcResult result = 
+				mocMvc.perform(post("/api/v1/customers") 
+				                    .contentType(MediaType.APPLICATION_JSON)
+				                    .content(AbstractTestControllerTest.asJsonString(newCustomer)))
+                	   .andExpect(status().isCreated())
+                	   .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("8"))
+                	   .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/8"))
+                	   .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(newCustomer.getFirstName()))
+                	   .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value(newCustomer.getLastName()))
+                	   .andReturn();
+		//log.debug(result.getResponse().getContentAsString());
 	}
 	
 	@Test
 	public void testGetOne() throws Exception {
 		
-		MvcResult result =
-				mocMvc.perform(get("/api/v1/customers/8"))
+		mocMvc.perform(post("/api/v1/customers") 
+                	      .contentType(MediaType.APPLICATION_JSON)
+                          .content(AbstractTestControllerTest.asJsonString(newCustomer)))
+					  .andExpect(status().isCreated())
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("9"))
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/9"))
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(newCustomer.getFirstName()))
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value(newCustomer.getLastName()))
+					  .andReturn();
+		
+		//MvcResult result = // this is id 9 because of testCreateCustomer()
+				mocMvc.perform(get("/api/v1/customers/9"))
 		              .andExpect(status().isOk())
-      				  .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("8"))
-      				  .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/8"))
+      				  .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("9"))
+      				  .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/9"))
       				  .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(newCustomer.getFirstName()))
       				  .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value(newCustomer.getLastName()))
       				  .andReturn();
-		log.debug(result.getResponse().getContentAsString());
-		//assertEquals(categoriesResponseS, result.getResponse().getContentAsString());
+		//log.debug(result.getResponse().getContentAsString());
 	}
 	
-	
+	@Test
+	public void testPutCustomer() throws Exception {
+		
+		mocMvc.perform(put("/api/v1/customers/3") 
+                	      .contentType(MediaType.APPLICATION_JSON)
+                          .content(AbstractTestControllerTest.asJsonString(newCustomer)))
+					  .andExpect(status().isOk())
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("3"))
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/3"))
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(newCustomer.getFirstName()))
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value(newCustomer.getLastName()))
+					  .andReturn();
+		
+		//MvcResult result = // this is id 9 because of testCreateCustomer()
+				mocMvc.perform(get("/api/v1/customers/3"))
+		              .andExpect(status().isOk())
+      				  .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("3"))
+      				  .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/3"))
+      				  .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(newCustomer.getFirstName()))
+      				  .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value(newCustomer.getLastName()))
+      				  .andReturn();
+		//log.debug(result.getResponse().getContentAsString());
+	}	
+
+	@Test
+	public void testPatchCustomer() throws Exception {
+		JsonNode customerJson = AbstractTestControllerTest
+				                   .readJsonNode(
+					                mocMvc.perform(get("/api/v1/customers/3"))
+		              				      .andExpect(status().isOk())
+		                                  .andReturn()
+		                                  .getResponse()
+		                                  .getContentAsString());
+		String lastName = customerJson.get("lastName").asText();
+		newCustomer.setLastName(null);
+		mocMvc.perform(patch("/api/v1/customers/3") 
+                	      .contentType(MediaType.APPLICATION_JSON)
+                          .content(AbstractTestControllerTest.asJsonString(newCustomer)))
+					  .andExpect(status().isOk())
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("3"))
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/3"))
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(newCustomer.getFirstName()))
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value(lastName))
+					  .andReturn();
+		
+		//MvcResult result = // this is id 9 because of testCreateCustomer()
+				mocMvc.perform(get("/api/v1/customers/3"))
+		              .andExpect(status().isOk())
+      				  .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("3"))
+      				  .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/3"))
+      				  .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(newCustomer.getFirstName()))
+      				  .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value(lastName))
+      				  .andReturn();
+		//log.debug(result.getResponse().getContentAsString());
+	}
 }

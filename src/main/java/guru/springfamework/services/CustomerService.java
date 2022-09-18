@@ -9,6 +9,7 @@ public interface CustomerService {
 	CustomerDTO getCustomerById(String id);
 	
 	CustomerDTO createCustomer(CustomerDTO customer);
+	CustomerDTO replaceCustomer(String id, CustomerDTO customer);
 	CustomerDTO updateCustomer(String id, CustomerDTO customer);
 	
 }

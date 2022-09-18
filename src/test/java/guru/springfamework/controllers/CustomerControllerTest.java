@@ -40,7 +40,7 @@ public class CustomerControllerTest extends AbstractTestControllerTest {
 	private CustomerController customerController;
 	
 	private static final String[] personNames = {"Vali", "Georgel"};
-	private final String customersResponseS = "{\"categories\":[{\"id\":0,\"firstName\":\"Vali\",\"lastName\":\"Georgel\",\"url\":\"/api/v1/customers/0\"},{\"id\":1,\"firstName\":\"Georgel\",\"lastName\":\"Vali\",\"url\":\"/api/v1/customers/1\"}]}";
+	private final String customersResponseS = "{\"customers\":[{\"id\":0,\"firstName\":\"Vali\",\"lastName\":\"Georgel\",\"url\":\"/api/v1/customers/0\"},{\"id\":1,\"firstName\":\"Georgel\",\"lastName\":\"Vali\",\"url\":\"/api/v1/customers/1\"}]}";
 	private static List<CustomerDTO> customers = new LinkedList<>();
 	
 	private MockMvc mocMvc = null;

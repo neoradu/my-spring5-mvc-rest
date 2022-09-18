@@ -53,7 +53,8 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
                                                       customerMapper);
 		cusomerController = new CustomerController(customerService);
 		mocMvc = MockMvcBuilders.standaloneSetup(cusomerController)
-		                         .build();
+								.setControllerAdvice(new RestExceptionHandler())
+		                        .build();
 		if(categoryRepository.count() == 0) {
 			//BootstrapData maybe make this something standard for the tests
 			BootstrapData bootstrap = new BootstrapData(categoryRepository,
@@ -130,6 +131,33 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
       				  .andReturn();
 		//log.debug(result.getResponse().getContentAsString());
 	}
+	@Test
+	public void testGetBadUrl() throws Exception {
+		
+		//MvcResult result =
+		mocMvc.perform(get("/api/v1/customers/ggf"))
+		              .andExpect(status().isBadRequest());
+		//log.debug(result.getResponse().getContentAsString());
+	}
+	@Test
+	public void testGetMissingCustomer() throws Exception {
+		
+		//MvcResult result =
+		mocMvc.perform(get("/api/v1/customers/34"))
+		              .andExpect(status().isNotFound());
+		//log.debug(result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void testPutMissingCustomer() throws Exception {
+		
+		//MvcResult result =
+		mocMvc.perform(put("/api/v1/customers/33") 
+      	      			.contentType(MediaType.APPLICATION_JSON)
+      	      			.content(AbstractTestControllerTest.asJsonString(newCustomer)))
+		              .andExpect(status().isNotFound());
+		//log.debug(result.getResponse().getContentAsString());
+	}
 	
 	@Test
 	public void testPutCustomer() throws Exception {
@@ -153,8 +181,19 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
       				  .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value(newCustomer.getLastName()))
       				  .andReturn();
 		//log.debug(result.getResponse().getContentAsString());
-	}	
-
+	}
+	
+	@Test
+	public void testPatchMissingCustomer() throws Exception {
+		
+		//MvcResult result =
+		mocMvc.perform(put("/api/v1/customers/35") 
+		      	      .contentType(MediaType.APPLICATION_JSON)
+		              .content(AbstractTestControllerTest.asJsonString(newCustomer)))
+		              .andExpect(status().isNotFound());
+		//log.debug(result.getResponse().getContentAsString());
+	}
+	
 	@Test
 	public void testPatchCustomer() throws Exception {
 		JsonNode customerJson = AbstractTestControllerTest
@@ -186,6 +225,7 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
       				  .andReturn();
 		//log.debug(result.getResponse().getContentAsString());
 	}
+	
 	@Test
 	public void testDeleteCustomer() throws Exception {
 		
@@ -193,7 +233,7 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 					  .andExpect(status().isOk());
 		
 		//MvcResult result =
-				mocMvc.perform(get("/api/v1/customers/3"))
+		mocMvc.perform(get("/api/v1/customers/3"))
 		              .andExpect(status().isNotFound());
 		//log.debug(result.getResponse().getContentAsString());
 	}

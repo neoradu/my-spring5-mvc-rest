@@ -16,7 +16,7 @@ import guru.springfamework.api.v1.model.ErrorDTO;
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-	//this generic exception handler should be in @ControllerAdvice
+	//this generic exception handler should be in @ControllerAdvice EntityNotFoundException
 	@ExceptionHandler({EntityNotFoundException.class, EmptyResultDataAccessException.class})
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ResponseEntity<ErrorDTO> handleNotFound(HttpServletRequest req, Exception ex) {
@@ -28,4 +28,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		return new ResponseEntity<>(errorMsg, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler({java.lang.NumberFormatException.class})
+	public ResponseEntity<ErrorDTO> wrongInputParams(HttpServletRequest req, Exception ex) {
+		ErrorDTO errorMsg = ErrorDTO.builder()
+									.message(String.format("400 Wrong input parameters"))
+									.url(req.getServletPath())
+									.extraInfo(ex.getMessage())
+									.build();
+		
+		return new ResponseEntity<>(errorMsg, HttpStatus.BAD_REQUEST);
+	}
+	
 }

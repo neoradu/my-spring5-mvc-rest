@@ -80,7 +80,7 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 	public void testGetAll() throws Exception {
 		
 		//MvcResult result =
-				mocMvc.perform(get("/api/v1/customers"))
+				mocMvc.perform(get("/api/v1/customers").accept(MediaType.APPLICATION_JSON))
 		              .andExpect(status().isOk())
 		              .andExpect(MockMvcResultMatchers.jsonPath("$.customers").isArray())
 		              .andExpect(MockMvcResultMatchers.jsonPath("$.customers[0].firstName").value("Vali"))
@@ -96,7 +96,8 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 	public void testCreateCustomer() throws Exception {
 		//when(customerService.createCustomer(any())).thenReturn(customers.get(1));
 		//MvcResult result = 
-				mocMvc.perform(post("/api/v1/customers") 
+				mocMvc.perform(post("/api/v1/customers")
+									.accept(MediaType.APPLICATION_JSON) 
 				                    .contentType(MediaType.APPLICATION_JSON)
 				                    .content(AbstractTestControllerTest.asJsonString(newCustomer)))
                 	   .andExpect(status().isCreated())
@@ -111,7 +112,8 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 	@Test
 	public void testGetOne() throws Exception {
 		
-		mocMvc.perform(post("/api/v1/customers") 
+		mocMvc.perform(post("/api/v1/customers")
+						  .accept(MediaType.APPLICATION_JSON)
                 	      .contentType(MediaType.APPLICATION_JSON)
                           .content(AbstractTestControllerTest.asJsonString(newCustomer)))
 					  .andExpect(status().isCreated())
@@ -122,7 +124,7 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 					  .andReturn();
 		
 		//MvcResult result = // this is id 9 because of testCreateCustomer()
-				mocMvc.perform(get("/api/v1/customers/9"))
+				mocMvc.perform(get("/api/v1/customers/9").accept(MediaType.APPLICATION_JSON))
 		              .andExpect(status().isOk())
       				  .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("9"))
       				  .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/9"))
@@ -135,7 +137,7 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 	public void testGetBadUrl() throws Exception {
 		
 		//MvcResult result =
-		mocMvc.perform(get("/api/v1/customers/ggf"))
+		mocMvc.perform(get("/api/v1/customers/ggf").accept(MediaType.APPLICATION_JSON))
 		              .andExpect(status().isBadRequest());
 		//log.debug(result.getResponse().getContentAsString());
 	}
@@ -143,7 +145,7 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 	public void testGetMissingCustomer() throws Exception {
 		
 		//MvcResult result =
-		mocMvc.perform(get("/api/v1/customers/34"))
+		mocMvc.perform(get("/api/v1/customers/34").accept(MediaType.APPLICATION_JSON))
 		              .andExpect(status().isNotFound());
 		//log.debug(result.getResponse().getContentAsString());
 	}
@@ -152,7 +154,8 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 	public void testPutMissingCustomer() throws Exception {
 		
 		//MvcResult result =
-		mocMvc.perform(put("/api/v1/customers/33") 
+		mocMvc.perform(put("/api/v1/customers/33")
+						.accept(MediaType.APPLICATION_JSON)
       	      			.contentType(MediaType.APPLICATION_JSON)
       	      			.content(AbstractTestControllerTest.asJsonString(newCustomer)))
 		              .andExpect(status().isNotFound());
@@ -162,7 +165,8 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 	@Test
 	public void testPutCustomer() throws Exception {
 		
-		mocMvc.perform(put("/api/v1/customers/3") 
+		mocMvc.perform(put("/api/v1/customers/3")
+						  .accept(MediaType.APPLICATION_JSON)
                 	      .contentType(MediaType.APPLICATION_JSON)
                           .content(AbstractTestControllerTest.asJsonString(newCustomer)))
 					  .andExpect(status().isOk())
@@ -173,7 +177,7 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 					  .andReturn();
 		
 		//MvcResult result = // this is id 9 because of testCreateCustomer()
-				mocMvc.perform(get("/api/v1/customers/3"))
+				mocMvc.perform(get("/api/v1/customers/3").accept(MediaType.APPLICATION_JSON))
 		              .andExpect(status().isOk())
       				  .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("3"))
       				  .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/3"))
@@ -188,6 +192,7 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 		
 		//MvcResult result =
 		mocMvc.perform(put("/api/v1/customers/35") 
+					  .accept(MediaType.APPLICATION_JSON)
 		      	      .contentType(MediaType.APPLICATION_JSON)
 		              .content(AbstractTestControllerTest.asJsonString(newCustomer)))
 		              .andExpect(status().isNotFound());
@@ -198,14 +203,16 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 	public void testPatchCustomer() throws Exception {
 		JsonNode customerJson = AbstractTestControllerTest
 				                   .readJsonNode(
-					                mocMvc.perform(get("/api/v1/customers/3"))
+					                mocMvc.perform(get("/api/v1/customers/3")
+					                		         .accept(MediaType.APPLICATION_JSON))
 		              				      .andExpect(status().isOk())
 		                                  .andReturn()
 		                                  .getResponse()
 		                                  .getContentAsString());
 		String lastName = customerJson.get("lastName").asText();
 		newCustomer.setLastName(null);
-		mocMvc.perform(patch("/api/v1/customers/3") 
+		mocMvc.perform(patch("/api/v1/customers/3")
+						  .accept(MediaType.APPLICATION_JSON)
                 	      .contentType(MediaType.APPLICATION_JSON)
                           .content(AbstractTestControllerTest.asJsonString(newCustomer)))
 					  .andExpect(status().isOk())
@@ -216,7 +223,7 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 					  .andReturn();
 		
 		//MvcResult result = // this is id 9 because of testCreateCustomer()
-				mocMvc.perform(get("/api/v1/customers/3"))
+				mocMvc.perform(get("/api/v1/customers/3").accept(MediaType.APPLICATION_JSON))
 		              .andExpect(status().isOk())
       				  .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("3"))
       				  .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/3"))
@@ -233,7 +240,8 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 					  .andExpect(status().isOk());
 		
 		//MvcResult result =
-		mocMvc.perform(get("/api/v1/customers/3"))
+		mocMvc.perform(get("/api/v1/customers/3")
+						.accept(MediaType.APPLICATION_JSON))
 		              .andExpect(status().isNotFound());
 		//log.debug(result.getResponse().getContentAsString());
 	}

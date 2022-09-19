@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component //Indicates that an annotated class is a "component". Such classes are considered
 //as candidates for auto-detection when using annotation-based configuration and classpath scanning
 public class BootstrapData implements CommandLineRunner {
-	
+//Spring Boot will run ALL CommandLineRunner beans once the application context is loaded.	
 	final private CategoryRepository categoryRepository;
 	final private CustomerRepository customerRepository;
 

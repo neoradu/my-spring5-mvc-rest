@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -61,7 +62,7 @@ public class CategoryControllerTest {
 	public void testFindALL() throws Exception {
 		
 		when(categoryService.getAllCategories()).thenReturn(categories);
-		MvcResult result = mocMvc.perform(get("/api/v1/categories"))
+		MvcResult result = mocMvc.perform(get("/api/v1/categories").accept(MediaType.APPLICATION_JSON))
 		                         .andExpect(status().isOk())
 		                         .andReturn();
 		
@@ -73,7 +74,7 @@ public class CategoryControllerTest {
 		
 		when(categoryService.getCategoryByName(eq("Fruits"))).thenReturn(categories.get(0));
 		
-		MvcResult result = mocMvc.perform(get("/api/v1/categories/Fruits"))
+		MvcResult result = mocMvc.perform(get("/api/v1/categories/Fruits").accept(MediaType.APPLICATION_JSON))
 		                         .andExpect(status().isOk())
 		                         .andReturn();
 		

@@ -66,7 +66,8 @@ public class CustomerControllerTest extends AbstractTestControllerTest {
 	public void testFindALL() throws Exception {
 		
 		when(customerService.getAllCustomers()).thenReturn(customers);
-		MvcResult result = mocMvc.perform(get("/api/v1/customers"))
+		MvcResult result = mocMvc.perform(get("/api/v1/customers")
+										    .accept(MediaType.APPLICATION_JSON))
 		                         .andExpect(status().isOk())
 		                         .andReturn();
 		//log.debug(result.getResponse().getContentAsString());
@@ -78,7 +79,8 @@ public class CustomerControllerTest extends AbstractTestControllerTest {
 		
 		when(customerService.getCustomerById(eq("1"))).thenReturn(customers.get(1));
 		
-		MvcResult result = mocMvc.perform(get("/api/v1/customers/1"))
+		MvcResult result = mocMvc.perform(get("/api/v1/customers/1")
+											.accept(MediaType.APPLICATION_JSON))
 		                         .andExpect(status().isOk())
 		                         .andReturn();
 		//log.debug(result.getResponse().getContentAsString());
@@ -89,7 +91,8 @@ public class CustomerControllerTest extends AbstractTestControllerTest {
 	@Test
 	public void testCreateCustomer() throws Exception {
 		when(customerService.createCustomer(any())).thenReturn(customers.get(1));
-		MvcResult result = mocMvc.perform(post("/api/v1/customers") 
+		MvcResult result = mocMvc.perform(post("/api/v1/customers")
+											 .accept(MediaType.APPLICATION_JSON)
 				                             .contentType(MediaType.APPLICATION_JSON)
 				                             .content(this.asJsonString(customers.get(1))))
                 				.andExpect(status().isCreated())

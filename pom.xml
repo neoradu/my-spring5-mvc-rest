@@ -78,7 +78,15 @@
 	      <artifactId>springdoc-openapi-ui</artifactId>
 	      <version>1.6.11</version>
 	   </dependency>
-			
+	   <!-- For rendering xml views -->
+	  <dependency>
+		   <groupId>com.fasterxml.jackson.dataformat</groupId>
+		   <artifactId>jackson-dataformat-xml</artifactId>     
+	  </dependency>
+	  <!-- <dependency>
+		  <groupId>org.codehaus.woodstox</groupId>
+		  <artifactId>woodstox-code-asl</artifactId>
+	  </dependency>	 -->
 	</dependencies>
 
 

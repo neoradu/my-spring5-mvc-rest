@@ -17,4 +17,31 @@
     <properties>
         <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
     </properties> 
+    <build>
+	    <plugins>
+		      <plugin>
+		      <!-- This is used to generate POJOs from the.xsd file 
+		      https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.2/example_xjc_basic.html
+		      -->
+	            <groupId>org.codehaus.mojo</groupId>
+	            <artifactId>jaxb2-maven-plugin</artifactId>
+	            <version>2.4</version>
+	            <executions>
+	                <execution>
+	                    <id>xjc</id>
+	                    <goals>
+	                        <goal>xjc</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	            <configuration>
+	                <!-- The package of your generated sources -->
+	                <packageName>guru.springframework.model</packageName>
+	                <sources>
+	                   <source>src/main/resources/xsd</source>
+	                </sources>
+	            </configuration>
+	        </plugin>
+	    </plugins>
+    </build>
 </project>

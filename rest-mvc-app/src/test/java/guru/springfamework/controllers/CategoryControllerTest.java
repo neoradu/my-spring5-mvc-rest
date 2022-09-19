@@ -10,6 +10,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import guru.springframework.api.v1.mapper.CategoryMapper;
+import guru.springframework.api.v1.model.CategoryDTO;
+import guru.springframework.controllers.CategoryController;
+import guru.springframework.domain.Category;
+import guru.springframework.services.CategoryService;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -20,10 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.LinkedList;
 import java.util.List;
 
-import guru.springfamework.api.v1.mapper.CategoryMapper;
-import guru.springfamework.api.v1.model.CategoryDTO;
-import guru.springfamework.domain.Category;
-import guru.springfamework.services.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

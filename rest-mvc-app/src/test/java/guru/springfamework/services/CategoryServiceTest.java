@@ -12,10 +12,12 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import guru.springfamework.api.v1.mapper.CategoryMapper;
-import guru.springfamework.api.v1.model.CategoryDTO;
-import guru.springfamework.domain.Category;
-import guru.springfamework.repositories.CategoryRepository;
+import guru.springframework.api.v1.mapper.CategoryMapper;
+import guru.springframework.api.v1.model.CategoryDTO;
+import guru.springframework.domain.Category;
+import guru.springframework.repositories.CategoryRepository;
+import guru.springframework.services.CategoryService;
+import guru.springframework.services.CategoryServiceImpl;
 
 @SpringBootTest
 public class CategoryServiceTest {

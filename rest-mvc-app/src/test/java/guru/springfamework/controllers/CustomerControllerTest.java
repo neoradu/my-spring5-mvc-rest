@@ -22,10 +22,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import guru.springfamework.api.v1.mapper.CustomerMapper;
-import guru.springfamework.api.v1.model.CustomerDTO;
-import guru.springfamework.domain.Customer;
-import guru.springfamework.services.CustomerService;
+import guru.springframework.api.v1.mapper.CustomerMapper;
+import guru.springframework.api.v1.model.CustomerDTO;
+import guru.springframework.controllers.CustomerController;
+import guru.springframework.domain.Customer;
+import guru.springframework.services.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

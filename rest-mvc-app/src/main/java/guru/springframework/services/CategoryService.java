@@ -1,8 +1,8 @@
-package guru.springfamework.services;
+package guru.springframework.services;
 
 import java.util.List;
 
-import guru.springfamework.api.v1.model.CategoryDTO;
+import guru.springframework.api.v1.model.CategoryDTO;
 
 public interface CategoryService {
 	List<CategoryDTO> getAllCategories();

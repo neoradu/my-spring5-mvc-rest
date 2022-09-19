@@ -1,4 +1,4 @@
-package guru.springfamework.controllers;
+package guru.springframework.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import guru.springfamework.api.v1.model.CategoryDTO;
-import guru.springfamework.api.v1.model.CategoryListDTO;
-import guru.springfamework.services.CategoryService;
+import guru.springframework.api.v1.model.CategoryDTO;
+import guru.springframework.api.v1.model.CategoryListDTO;
+import guru.springframework.services.CategoryService;
 
 @RequestMapping("/api/v1/categories")
 @RestController

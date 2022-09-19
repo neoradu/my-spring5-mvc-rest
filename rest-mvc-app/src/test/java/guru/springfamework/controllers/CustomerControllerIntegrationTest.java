@@ -22,15 +22,18 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import guru.springframework.api.v1.mapper.CustomerMapper;
+import guru.springframework.bootstrap.BootstrapData;
+import guru.springframework.controllers.CustomerController;
+import guru.springframework.controllers.RestExceptionHandler;
+import guru.springframework.domain.Customer;
+import guru.springframework.repositories.CategoryRepository;
+import guru.springframework.repositories.CustomerRepository;
+import guru.springframework.services.CustomerService;
+import guru.springframework.services.CustomerServiceImpl;
+
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import guru.springfamework.api.v1.mapper.CustomerMapper;
-import guru.springfamework.bootstrap.BootstrapData;
-import guru.springfamework.domain.Customer;
-import guru.springfamework.repositories.CategoryRepository;
-import guru.springfamework.repositories.CustomerRepository;
-import guru.springfamework.services.CustomerService;
-import guru.springfamework.services.CustomerServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
 //@SpringBootTest

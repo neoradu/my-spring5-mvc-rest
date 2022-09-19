@@ -1,4 +1,4 @@
-package guru.springfamework.api.v1.model;
+package guru.springframework.api.v1.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

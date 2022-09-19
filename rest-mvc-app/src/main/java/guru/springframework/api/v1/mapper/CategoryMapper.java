@@ -1,10 +1,10 @@
-package guru.springfamework.api.v1.mapper;
+package guru.springframework.api.v1.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import guru.springfamework.api.v1.model.CategoryDTO;
-import guru.springfamework.domain.Category;
+import guru.springframework.api.v1.model.CategoryDTO;
+import guru.springframework.domain.Category;
 
 //https://mapstruct.org/
 //https://auth0.com/blog/how-to-automatically-map-jpa-entities-into-dtos-in-spring-boot-using-mapstruct/

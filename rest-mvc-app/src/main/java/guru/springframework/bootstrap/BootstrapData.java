@@ -1,11 +1,12 @@
-package guru.springfamework.bootstrap;
+package guru.springframework.bootstrap;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import guru.springfamework.domain.Category;
-import guru.springfamework.domain.Customer;
-import guru.springfamework.repositories.CategoryRepository;
-import guru.springfamework.repositories.CustomerRepository;
+
+import guru.springframework.domain.Category;
+import guru.springframework.domain.Customer;
+import guru.springframework.repositories.CategoryRepository;
+import guru.springframework.repositories.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 
 

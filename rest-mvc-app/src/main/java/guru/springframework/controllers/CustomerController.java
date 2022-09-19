@@ -1,4 +1,4 @@
-package guru.springfamework.controllers;
+package guru.springframework.controllers;
 
 import javax.validation.Valid;
 
@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import guru.springfamework.api.v1.model.CustomerDTO;
-import guru.springfamework.api.v1.model.CustomerListDTO;
-
-import guru.springfamework.services.CustomerService;
+import guru.springframework.api.v1.model.CustomerDTO;
+import guru.springframework.api.v1.model.CustomerListDTO;
+import guru.springframework.services.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 

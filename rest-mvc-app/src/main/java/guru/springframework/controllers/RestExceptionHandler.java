@@ -1,4 +1,4 @@
-package guru.springfamework.controllers;
+package guru.springframework.controllers;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import guru.springfamework.api.v1.model.ErrorDTO;
+import guru.springframework.api.v1.model.ErrorDTO;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {

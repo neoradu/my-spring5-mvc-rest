@@ -1,14 +1,14 @@
-package guru.springfamework.services;
+package guru.springframework.services;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import guru.springfamework.api.v1.mapper.CustomerMapper;
-import guru.springfamework.api.v1.model.CustomerDTO;
-import guru.springfamework.domain.Customer;
-import guru.springfamework.repositories.CustomerRepository;
+import guru.springframework.api.v1.mapper.CustomerMapper;
+import guru.springframework.api.v1.model.CustomerDTO;
+import guru.springframework.domain.Customer;
+import guru.springframework.repositories.CustomerRepository;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {

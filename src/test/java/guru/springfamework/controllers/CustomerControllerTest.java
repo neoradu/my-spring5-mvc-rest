@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,7 +30,7 @@ import guru.springfamework.services.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@SpringBootTest
+//@SpringBootTest
 public class CustomerControllerTest extends AbstractTestControllerTest {
 	
 	private static CustomerMapper  customerMapper = CustomerMapper.INSTANCE;
@@ -58,6 +59,7 @@ public class CustomerControllerTest extends AbstractTestControllerTest {
 	
 	@BeforeEach
 	public void setUp() {
+		MockitoAnnotations.initMocks(this);
 		mocMvc = MockMvcBuilders.standaloneSetup(customerController)
 				                .build();
 	}

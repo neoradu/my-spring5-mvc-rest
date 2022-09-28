@@ -9,9 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -40,17 +40,13 @@ public class CategoryControllerTest {
 	
 	private CategoryMapper catMapper = CategoryMapper.INSTANCE;
 	private List<CategoryDTO> categories = new LinkedList<>();
-	private String categoriesResponseS = "{\"categories\":[{\"id\":0,\"name\":\"Fruits\"}," +
-	                                                      "{\"id\":1,\"name\":\"Dried\"}," + 
-			                                              "{\"id\":2,\"name\":\"Fresh\"}]}";
-	private String categoryResponseS = "{\"id\":0,\"name\":\"Fruits\"}";
 	
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		mocMvc = MockMvcBuilders.standaloneSetup(catController).build();
 		String[] categoriesS = {"Fruits", "Dried", "Fresh"};
-		long i =0;
+		long i = 1;
 		for(String catName : categoriesS) {
 			Category cat = Category.builder()
 					               .name(catName)
@@ -63,11 +59,15 @@ public class CategoryControllerTest {
 	public void testFindALL() throws Exception {
 		
 		when(categoryService.getAllCategories()).thenReturn(categories);
-		MvcResult result = mocMvc.perform(get("/api/v1/categories").accept(MediaType.APPLICATION_JSON))
-		                         .andExpect(status().isOk())
-		                         .andReturn();
+		mocMvc.perform(get("/api/v1/categories").accept(MediaType.APPLICATION_JSON))
+		      .andExpect(status().isOk())
+			   .andExpect(MockMvcResultMatchers.jsonPath("$.categories").isArray())
+			   .andExpect(MockMvcResultMatchers.jsonPath("$.categories[0].id").value("1"))
+			   .andExpect(MockMvcResultMatchers.jsonPath("$.categories[0].name").value("Fruits"))
+			   .andExpect(MockMvcResultMatchers.jsonPath("$.categories[2].name").value("Fresh"))
+			   .andExpect(MockMvcResultMatchers.jsonPath("$.categories[2].url").value("/api/v1/categories/Fresh"));
 		
-		assertEquals(categoriesResponseS, result.getResponse().getContentAsString());
+
 	}
 	
 	@Test
@@ -75,10 +75,10 @@ public class CategoryControllerTest {
 		
 		when(categoryService.getCategoryByName(eq("Fruits"))).thenReturn(categories.get(0));
 		
-		MvcResult result = mocMvc.perform(get("/api/v1/categories/Fruits").accept(MediaType.APPLICATION_JSON))
-		                         .andExpect(status().isOk())
-		                         .andReturn();
-		
-		assertEquals(categoryResponseS, result.getResponse().getContentAsString());
+		mocMvc.perform(get("/api/v1/categories/Fruits").accept(MediaType.APPLICATION_JSON))
+		      .andExpect(status().isOk())
+			   .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"))
+			   .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Fruits"))
+			   .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/categories/Fruits"));
 	}
 }

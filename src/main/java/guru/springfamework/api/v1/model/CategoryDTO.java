@@ -13,8 +13,8 @@ public class CategoryDTO {
     private String name;
     private String url;
     
-    public void setId(long id) {
-    	this.id = id;
-    	url = "/api/v1/categories/" + id;
+    public void setName(String name) {
+    	this.name = name;
+    	url = "/api/v1/categories/" + name;
     }
 }

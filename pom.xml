@@ -14,8 +14,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.0.RELEASE</version>
-		<!--  <version>2.7.3</version>-->
+		<!--<version>2.1.0.RELEASE</version> -->
+		<version>2.7.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -66,10 +66,12 @@
 		    <groupId>org.junit.jupiter</groupId>
 		    <artifactId>junit-jupiter-api</artifactId>
 		    <scope>test</scope>
+		  
 		</dependency>
 		<dependency>
 		    <groupId>org.junit.jupiter</groupId>
 		    <artifactId>junit-jupiter-engine</artifactId>
+		    
 		    <scope>test</scope>
 		</dependency>
 		<!-- OPEN API DOCS https://springdoc.org/-->

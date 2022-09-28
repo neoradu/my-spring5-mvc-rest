@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import guru.springfamework.Exceptions.NotFoundException;
 import guru.springfamework.api.v1.mapper.CategoryMapper;
 import guru.springfamework.api.v1.model.CategoryDTO;
 import guru.springfamework.domain.Category;
@@ -32,7 +33,11 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public CategoryDTO getCategoryByName(String name) {
-		return mapper.categoryToCategoryDTO(repository.findByName(name));
+		CategoryDTO catFound = mapper.categoryToCategoryDTO(repository.findByName(name));
+		if(catFound == null)
+			throw new NotFoundException(String.format("Category:%s not found", name));
+			
+		return catFound;
 	}
 
 }

@@ -11,4 +11,10 @@ import lombok.Data;
 public class CategoryDTO {
     private Long id;
     private String name;
+    private String url;
+    
+    public void setId(long id) {
+    	this.id = id;
+    	url = "/api/v1/categories/" + id;
+    }
 }

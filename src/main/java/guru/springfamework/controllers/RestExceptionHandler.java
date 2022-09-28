@@ -11,13 +11,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import guru.springfamework.Exceptions.NotFoundException;
 import guru.springfamework.api.v1.model.ErrorDTO;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 	//this generic exception handler should be in @ControllerAdvice EntityNotFoundException
-	@ExceptionHandler({EntityNotFoundException.class, EmptyResultDataAccessException.class})
+	@ExceptionHandler({EntityNotFoundException.class, EmptyResultDataAccessException.class,
+					   NotFoundException.class})
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ResponseEntity<ErrorDTO> handleNotFound(HttpServletRequest req, Exception ex) {
 		ErrorDTO errorMsg = ErrorDTO.builder()

@@ -23,7 +23,7 @@ import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CategoryRepository;
 import guru.springfamework.repositories.CustomerRepository;
 
-//@ExtendWith(SpringExtension.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(OrderAnnotation.class)
@@ -113,15 +113,12 @@ public class TestAllAppIT extends AbstractTestControllerTest {
 	   .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("8"))
 	   .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/8"))
 	   .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(newCustomer.getFirstName()))
-	   .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value(newCustomer.getLastName()));
-		System.out.println("!!!!CREATE");
-		
+	   .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value(newCustomer.getLastName()));		
 	}
 	
 	@Test
 	@Order(6)
 	public void testGetOneCustomer() throws Exception {
-		System.out.println("!!!!READ");
 		mockMvc.perform(get("/api/v1/customers/8")
 					.accept(MediaType.APPLICATION_JSON))
 	   .andExpect(status().isOk())

@@ -62,18 +62,16 @@
 		  <version>1.3.1.Final</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-		<dependency>
+		<!--<dependency>
 		    <groupId>org.junit.jupiter</groupId>
 		    <artifactId>junit-jupiter-api</artifactId>
 		    <scope>test</scope>
-		  
 		</dependency>
 		<dependency>
 		    <groupId>org.junit.jupiter</groupId>
 		    <artifactId>junit-jupiter-engine</artifactId>
-		    
 		    <scope>test</scope>
-		</dependency>
+		</dependency> -->
 		<!-- OPEN API DOCS https://springdoc.org/-->
 	   <dependency>
 	      <groupId>org.springdoc</groupId>

@@ -18,7 +18,6 @@ import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CustomerRepository;
 
-@SpringBootTest
 public class CustomerServiceTest {
 
 	private CustomerMapper customerMapper = CustomerMapper.INSTANCE;

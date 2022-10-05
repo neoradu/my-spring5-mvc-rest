@@ -4,11 +4,15 @@ import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import guru.springfamework.Exceptions.NotFoundException;
@@ -41,5 +45,27 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		return new ResponseEntity<>(errorMsg, HttpStatus.BAD_REQUEST);
 	}
+	
+	//@ExceptionHandler(MethodArgumentNotValidException.class) Spring already has this mapped to 
+	// handleMethodArgumentNotValid so to add custom handling i need to overwrite this
+	public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, 
+			                                                   HttpHeaders headers, HttpStatus status,
+			                                                   WebRequest request) {
+		MethodArgumentNotValidException mArgEx = (MethodArgumentNotValidException)ex;
+		StringBuilder sb = new StringBuilder();
+		for(FieldError err : mArgEx.getFieldErrors()) {
+			sb.append(err.getField())
+			  .append(":")
+			  .append(err.getDefaultMessage())
+			  .append("| |");
+		}
+		ErrorDTO errorMsg = ErrorDTO.builder()
+									.message(String.format("400 Wrong input parameters"))
+								    .url(request.getDescription(false).replaceFirst("uri=", ""))
+									.extraInfo(sb.toString())
+				                    .build();
+		return new ResponseEntity<>(errorMsg, HttpStatus.BAD_REQUEST);
+	}
+	
 	
 }

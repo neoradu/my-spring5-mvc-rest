@@ -64,10 +64,10 @@ public class CustomerController {
 			                                          @Valid @RequestBody CustomerDTO customerDto) {
 		return new ResponseEntity<>(customerService.replaceCustomer(id, customerDto), HttpStatus.OK);
 	}
-	
+	//in this case some other validation needs to be in place  @Valid will validate all the fields
 	@PatchMapping("/{id}")
 	public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable String id, 
-			                                          @Valid @RequestBody CustomerDTO customerDto) {
+			                                          @RequestBody CustomerDTO customerDto) {
 		return new ResponseEntity<>(customerService.updateCustomer(id, customerDto), HttpStatus.OK);
 	}
 	

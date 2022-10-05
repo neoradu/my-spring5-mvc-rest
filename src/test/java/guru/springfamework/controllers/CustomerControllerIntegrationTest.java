@@ -13,10 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-//import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -243,6 +242,24 @@ public class CustomerControllerIntegrationTest extends AbstractTestControllerTes
 						.accept(MediaType.APPLICATION_JSON))
 		              .andExpect(status().isNotFound());
 		//log.debug(result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void testBadParameters() throws  Exception {
+		Customer badCustomer = Customer.builder()
+	              				       .firstName("1")
+	                                   .lastName("1")
+	                                   .build();	
+		mocMvc.perform(put("/api/v1/customers/3")
+				        .accept(MediaType.APPLICATION_JSON)
+      	                .contentType(MediaType.APPLICATION_JSON)
+                        .content(AbstractTestControllerTest.asJsonString(badCustomer))
+                      )
+			  .andExpect(status().isBadRequest())
+			  .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("400 Wrong input parameters"))
+			  .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("/api/v1/customers/3"))
+			  .andExpect(MockMvcResultMatchers.jsonPath("$.extraInfo").isNotEmpty())
+			  .andReturn();	
 	}
 	//TODO: research :http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matchers.html
 }
